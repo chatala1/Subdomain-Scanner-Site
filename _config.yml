@@ -1,7 +1,7 @@
 title: Subdomain Scanner
 description: Scan subdomains using RapidAPI
 theme: minimal-mistakes-jekyll
-  skin: dark
+skin: dark
 plugins:
   - jekyll-include-cache
 
