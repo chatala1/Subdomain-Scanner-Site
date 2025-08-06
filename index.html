@@ -9,10 +9,16 @@
 <body>
   <div class="container">
     <h1>Subdomain Scanner</h1>
-    <input type="text" id="domainInput" placeholder="Enter a domain (e.g., example.com)" />
-    <button onclick="scanSubdomains()">Scan</button>
+    <p>Discover subdomains for any domain using RapidAPI</p>
+    <div class="input-group">
+      <input type="text" id="domainInput" placeholder="Enter a domain (e.g., example.com)" />
+      <button onclick="scanSubdomains()">Scan</button>
+    </div>
     <ul id="subdomainList"></ul>
   </div>
+  
+  <!-- Load configuration if available -->
+  <script src="config.js" onerror="console.warn('Config file not loaded. Using example configuration.')"></script>
   <script src="script.js"></script>
 </body>
 </html>

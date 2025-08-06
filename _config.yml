@@ -1,9 +1,37 @@
 title: Subdomain Scanner
-description: Scan subdomains using RapidAPI
-theme: minimal-mistakes-jekyll
-  skin: dark
+description: Discover subdomains for any domain using RapidAPI
+url: "https://chatala1.github.io"
+baseurl: "/Subdomain-Scanner-Site"
+
+# Jekyll theme
+theme: minima
+# theme: minimal-mistakes-jekyll
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+permalink: /:year/:month/:day/:title/
+
+# Plugins
 plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
   - jekyll-include-cache
 
-minimal_mistakes_skin: "air"
-markdown: kramdown
+# Exclude from processing
+exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - config.js
+  - config.example.js
+  - deploy.sh
+  - README.md

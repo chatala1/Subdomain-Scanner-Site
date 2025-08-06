@@ -1,33 +1,112 @@
 body {
-  font-family: sans-serif;
-  background: #f8f8f8;
-  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  margin: 0;
   padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .container {
   max-width: 500px;
-  margin: auto;
+  width: 100%;
   background: white;
   padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+h1 {
+  color: #333;
+  margin-bottom: 0.5rem;
+  font-size: 2rem;
+}
+
+p {
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.input-group {
+  margin-bottom: 2rem;
 }
 
 input {
-  width: 80%;
-  padding: 0.5rem;
+  width: 100%;
+  max-width: 300px;
+  padding: 12px;
   font-size: 1rem;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+input:focus {
+  outline: none;
+  border-color: #667eea;
 }
 
 button {
-  margin-top: 1rem;
-  padding: 0.5rem 1rem;
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  padding: 12px 24px;
   font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
   cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 100px;
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
 }
 
 ul {
   list-style: none;
   padding: 0;
+  margin: 0;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+li {
+  background: #f8f9fa;
+  margin: 0.5rem 0;
+  padding: 12px;
+  border-radius: 6px;
+  border-left: 4px solid #667eea;
+  text-align: left;
+  font-family: 'Courier New', monospace;
+  word-break: break-all;
+}
+
+li:hover {
+  background: #e9ecef;
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 1rem;
+  }
+  
+  .container {
+    padding: 1.5rem;
+  }
+  
+  h1 {
+    font-size: 1.5rem;
+  }
 }
