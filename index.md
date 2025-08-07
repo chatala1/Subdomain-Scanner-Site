@@ -5,9 +5,34 @@ title: Subdomain Scanner
 
 <div class="container">
   <h1>Subdomain Scanner</h1>
-  <input type="text" id="domainInput" placeholder="Enter a domain (e.g., example.com)" />
-  <button onclick="scanSubdomains()">Scan</button>
-  <ul id="subdomainList"></ul>
+  
+  <div id="apiKeySection" class="api-key-section" style="display: none;">
+    <h3>RapidAPI Key Required</h3>
+    <p>To use this scanner, you need a free API key from <a href="https://rapidapi.com/sedrakpc/api/subdomain-scan1/" target="_blank">RapidAPI Subdomain Scanner</a></p>
+    <div class="api-key-input">
+      <input type="password" id="apiKeyInput" placeholder="Enter your RapidAPI key" />
+      <button onclick="saveApiKey()">Save Key</button>
+    </div>
+  </div>
+  
+  <div class="api-key-status">
+    <span id="apiKeyStatus"></span>
+    <button onclick="clearApiKey()" class="clear-key-btn" style="display: none;" id="clearKeyBtn">Change API Key</button>
+  </div>
+  
+  <div class="scanner-input">
+    <input type="text" id="domainInput" placeholder="Enter a domain (e.g., example.com)" />
+    <button onclick="scanSubdomains()" class="scan-btn">Scan</button>
+  </div>
+  
+  <div id="scanStatus" class="scan-status"></div>
+  
+  <ul id="subdomainList" class="subdomain-list"></ul>
+  
+  <div class="footer">
+    <p><strong>Note:</strong> Due to browser CORS restrictions, the API may not work directly. Use demo mode or implement a server-side proxy for production use.</p>
+    <p>Powered by <a href="https://rapidapi.com/sedrakpc/api/subdomain-scan1/" target="_blank">RapidAPI Subdomain Scanner</a></p>
+  </div>
 </div>
 
 <script src="/assets/js/scanner.js"></script>

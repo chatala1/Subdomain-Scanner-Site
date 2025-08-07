@@ -1,33 +1,221 @@
 body {
-  font-family: sans-serif;
-  background: #f8f8f8;
-  text-align: center;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #f5f7fa;
+  margin: 0;
   padding: 2rem;
+  line-height: 1.6;
 }
 
 .container {
-  max-width: 500px;
+  max-width: 600px;
   margin: auto;
   background: white;
   padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-input {
-  width: 80%;
-  padding: 0.5rem;
+h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 2rem;
+}
+
+h3 {
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+.api-key-section {
+  background: #fff3cd;
+  border: 1px solid #ffeaa7;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.api-key-section p {
+  margin-bottom: 1rem;
+  color: #856404;
+}
+
+.api-key-section a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.api-key-section a:hover {
+  text-decoration: underline;
+}
+
+.api-key-input {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.api-key-input input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.api-key-status {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  min-height: 1.5rem;
+}
+
+.api-key-status span {
+  color: #28a745;
+  font-weight: 500;
+}
+
+.clear-key-btn {
+  background: none;
+  border: 1px solid #dc3545;
+  color: #dc3545;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  margin-left: 1rem;
+}
+
+.clear-key-btn:hover {
+  background: #dc3545;
+  color: white;
+}
+
+.scanner-input {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.scanner-input input {
+  flex: 1;
+  padding: 0.75rem;
   font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.scanner-input input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
 }
 
 button {
-  margin-top: 1rem;
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1.5rem;
   font-size: 1rem;
   cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  transition: all 0.2s;
 }
 
-ul {
+.scan-btn {
+  background: #007bff;
+  color: white;
+  font-weight: 500;
+}
+
+.scan-btn:hover {
+  background: #0056b3;
+  transform: translateY(-1px);
+}
+
+.scan-btn:active {
+  transform: translateY(0);
+}
+
+.api-key-input button {
+  background: #28a745;
+  color: white;
+  padding: 0.75rem 1rem;
+}
+
+.api-key-input button:hover {
+  background: #218838;
+}
+
+.scan-status {
+  text-align: center;
+  margin-bottom: 1rem;
+  min-height: 1.5rem;
+  font-weight: 500;
+  color: #555;
+}
+
+.subdomain-list {
   list-style: none;
   padding: 0;
+  margin: 0;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.subdomain-list li {
+  background: #f8f9fa;
+  margin-bottom: 0.5rem;
+  padding: 0.75rem;
+  border-radius: 6px;
+  border-left: 4px solid #007bff;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.9rem;
+  word-break: break-all;
+}
+
+.subdomain-list li:hover {
+  background: #e9ecef;
+}
+
+.demo-tag {
+  background: #ffc107;
+  color: #212529;
+  font-size: 0.7rem;
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-weight: bold;
+  margin-left: 0.5rem;
+}
+
+.footer {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e9ecef;
+  text-align: center;
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.footer p {
+  margin-bottom: 0.5rem;
+}
+
+.footer a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 640px) {
+  .container {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+  
+  .scanner-input {
+    flex-direction: column;
+  }
+  
+  .api-key-input {
+    flex-direction: column;
+  }
 }

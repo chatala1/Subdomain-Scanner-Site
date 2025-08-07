@@ -1,25 +1,145 @@
-async function scanSubdomains() {
-  const domain = document.getElementById("domainInput").value;
-  const url = `https://subdomain-scan1.p.rapidapi.com/?domain=${domain}`;
+let userApiKey = localStorage.getItem('rapidapi_key');
 
+function showApiKeyInput() {
+  const keyInput = document.getElementById("apiKeyInput");
+  const keySection = document.getElementById("apiKeySection");
+  if (!userApiKey) {
+    keySection.style.display = "block";
+  }
+}
+
+function saveApiKey() {
+  const keyInput = document.getElementById("apiKeyInput");
+  const key = keyInput.value.trim();
+  if (key) {
+    userApiKey = key;
+    localStorage.setItem('rapidapi_key', key);
+    document.getElementById("apiKeySection").style.display = "none";
+    document.getElementById("apiKeyStatus").innerHTML = "✓ API key saved";
+    document.getElementById("clearKeyBtn").style.display = "inline";
+  }
+}
+
+function clearApiKey() {
+  userApiKey = null;
+  localStorage.removeItem('rapidapi_key');
+  document.getElementById("apiKeySection").style.display = "block";
+  document.getElementById("apiKeyStatus").innerHTML = "";
+  document.getElementById("apiKeyInput").value = "";
+  document.getElementById("clearKeyBtn").style.display = "none";
+}
+
+function runDemoScan(domain) {
+  const listEl = document.getElementById("subdomainList");
+  const statusEl = document.getElementById("scanStatus");
+  
+  // Simulate scanning process
+  statusEl.innerHTML = "Running demo scan...";
+  listEl.innerHTML = "<li>Loading...</li>";
+  
+  setTimeout(() => {
+    const demoSubdomains = [
+      `www.${domain}`,
+      `mail.${domain}`,
+      `ftp.${domain}`,
+      `admin.${domain}`,
+      `api.${domain}`,
+      `blog.${domain}`,
+      `shop.${domain}`,
+      `support.${domain}`
+    ];
+    
+    listEl.innerHTML = demoSubdomains
+      .map(sub => `<li>${sub} <span class="demo-tag">(demo)</span></li>`)
+      .join("");
+    statusEl.innerHTML = `Demo completed - ${demoSubdomains.length} example subdomains shown`;
+  }, 2000);
+}
+
+async function scanSubdomains() {
+  const domain = document.getElementById("domainInput").value.trim();
+  const listEl = document.getElementById("subdomainList");
+  const statusEl = document.getElementById("scanStatus");
+  
+  if (!domain) {
+    alert("Please enter a domain name");
+    return;
+  }
+
+  if (!userApiKey) {
+    showApiKeyInput();
+    alert("Please enter your RapidAPI key first");
+    return;
+  }
+
+  // Show loading state
+  statusEl.innerHTML = "Scanning subdomains...";
+  listEl.innerHTML = "<li>Loading...</li>";
+  
+  const url = `https://subdomain-scan1.p.rapidapi.com/?domain=${domain}`;
+  
   const options = {
     method: "GET",
     headers: {
-      "X-RapidAPI-Key": "YOUR_RAPIDAPI_KEY_HERE",
+      "X-RapidAPI-Key": userApiKey,
       "X-RapidAPI-Host": "subdomain-scan1.p.rapidapi.com"
     }
   };
 
   try {
     const response = await fetch(url, options);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
     const result = await response.json();
-    const listEl = document.getElementById("subdomainList");
-    listEl.innerHTML = result.subdomains
-      .map(sub => `<li>${sub}</li>`)
-      .join("");
+    
+    if (result.subdomains && Array.isArray(result.subdomains)) {
+      if (result.subdomains.length === 0) {
+        listEl.innerHTML = "<li>No subdomains found</li>";
+        statusEl.innerHTML = "Scan completed - no subdomains found";
+      } else {
+        listEl.innerHTML = result.subdomains
+          .map(sub => `<li>${sub}</li>`)
+          .join("");
+        statusEl.innerHTML = `Scan completed - ${result.subdomains.length} subdomains found`;
+      }
+    } else {
+      // Handle different response format
+      listEl.innerHTML = "<li>Unexpected response format</li>";
+      statusEl.innerHTML = "Scan completed with unexpected response";
+      console.log("API Response:", result);
+    }
   } catch (err) {
-    console.error(err);
-    alert("Error fetching subdomains. Check your API key and domain.");
+    console.error("Scan error:", err);
+    
+    if (err.message.includes('401') || err.message.includes('403')) {
+      listEl.innerHTML = "<li style='color: red;'>Error: Invalid API key</li>";
+      statusEl.innerHTML = "Error: Invalid API key. Please check your RapidAPI key.";
+      showApiKeyInput();
+    } else if (err.message.includes('Failed to fetch')) {
+      // CORS issue - offer demo mode
+      listEl.innerHTML = `
+        <li style='color: orange;'>CORS Error: Direct browser calls not supported</li>
+        <li style='color: #666;'>This API requires server-side implementation</li>
+        <li style='color: #007bff; cursor: pointer;' onclick='runDemoScan("${domain}")'>Click here to see demo results</li>
+      `;
+      statusEl.innerHTML = "Error: CORS restriction. Try demo mode or implement server-side proxy.";
+    } else {
+      listEl.innerHTML = "<li style='color: red;'>Error occurred during scan</li>";
+      statusEl.innerHTML = `Error: ${err.message}`;
+    }
   }
 }
+
+// Check if API key exists on page load
+window.addEventListener('DOMContentLoaded', function() {
+  if (userApiKey) {
+    document.getElementById("apiKeyStatus").innerHTML = "✓ API key saved";
+    document.getElementById("clearKeyBtn").style.display = "inline";
+  } else {
+    showApiKeyInput();
+  }
+});
 
