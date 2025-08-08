@@ -1,10 +1,10 @@
 title: Subdomain Scanner
 description: Scan subdomains using RapidAPI
-theme: minimal-mistakes-jekyll
+# theme: minimal-mistakes-jekyll  # Not available in GitHub Pages
 skin: dark
 plugins:
   - jekyll-feed
-  - minimal-mistakes-jekyll
+  # - minimal-mistakes-jekyll  # Not available in GitHub Pages
 
 minimal_mistakes_skin: "air"
 markdown: kramdown
