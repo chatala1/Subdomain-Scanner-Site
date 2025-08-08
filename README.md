@@ -1,18 +1,30 @@
 # Subdomain Scanner
 
-A simple web-based subdomain scanner that uses RapidAPI's subdomain-scan1 service to discover subdomains for a given domain.
+A web-based subdomain scanner that integrates with the RapidAPI Subdomain Scanner service. This project provides both a modern single-page application interface and Jekyll-based static site generation for GitHub Pages deployment.
 
 ## Features
 
-- Clean, responsive web interface
-- Real-time subdomain scanning
-- Error handling and user feedback
-- Jekyll-based static site generation
-- GitHub Pages deployment ready
+- 🔐 **Secure API key management** - Keys stored locally in browser only
+- 🎯 **Clean, modern interface** - Responsive design that works on all devices
+- 🚀 **Real-time subdomain scanning** - Live results with loading states
+- 📱 **Mobile-responsive design** - Optimized for desktop and mobile
+- 🔄 **Demo mode for testing** - Works when CORS restrictions prevent API calls
+- ⚡ **Error handling and user feedback** - Comprehensive error messages
+- 🏗️ **Jekyll-based static site generation** - GitHub Pages deployment ready
 
 ## Demo
 
 The site is deployed at: [https://chatala1.github.io/Subdomain-Scanner-Site](https://chatala1.github.io/Subdomain-Scanner-Site)
+
+## How to Use
+
+1. **Get a RapidAPI Key**: Visit [RapidAPI Subdomain Scanner](https://rapidapi.com/sedrakpc/api/subdomain-scan1/) and sign up for a free API key.
+
+2. **Enter Your API Key**: When you first visit the site, you'll be prompted to enter your RapidAPI key. This is stored securely in your browser's local storage.
+
+3. **Scan Subdomains**: Enter a domain name (e.g., `example.com`) and click "Scan" to discover subdomains.
+
+4. **Demo Mode**: If you encounter CORS issues (common with browser-based API calls), you can use the demo mode to see how the scanner works.
 
 ## Setup
 
@@ -41,13 +53,30 @@ The site is deployed at: [https://chatala1.github.io/Subdomain-Scanner-Site](htt
 
    The site will be available at `http://localhost:4000`
 
-### API Configuration
+### Simple HTTP Server Alternative
 
-To use the subdomain scanning functionality:
+For quick testing without Jekyll:
 
-1. Sign up for a RapidAPI account at [https://rapidapi.com](https://rapidapi.com)
-2. Subscribe to the subdomain-scan1 API
-3. Replace `YOUR_RAPIDAPI_KEY_HERE` in both `script.js` and `assets/js/scanner.js` with your actual API key
+```bash
+# Simple HTTP server
+python3 -m http.server 8000
+```
+
+## Technical Details
+
+### CORS Limitations
+
+Due to browser security restrictions (CORS), direct API calls to RapidAPI may not work from a client-side application. This is a common limitation with external APIs. The application includes:
+
+- Clear error messaging about CORS issues
+- Demo mode to showcase functionality
+- Suggestions for server-side implementation
+
+### Security
+
+- API keys are stored locally in your browser only
+- No server-side storage of sensitive information
+- Keys can be easily changed or cleared
 
 ## File Structure
 
@@ -60,7 +89,6 @@ To use the subdomain scanning functionality:
 │       └── scanner.js   # Main JavaScript functionality
 ├── index.html           # Static homepage
 ├── index.md             # Jekyll markdown homepage
-├── script.js            # JavaScript (for static version)
 ├── style.css            # Main stylesheet
 ├── deploy.sh            # Deployment script
 └── README.md            # This file
@@ -82,13 +110,6 @@ Use the provided deployment script:
 ./deploy.sh
 ```
 
-## Usage
-
-1. Open the website
-2. Enter a domain name (e.g., "example.com") in the input field
-3. Click "Scan" to discover subdomains
-4. Results will be displayed in a list below the form
-
 ## Troubleshooting
 
 ### Theme Issues
@@ -104,21 +125,21 @@ If you encounter build errors related to the `minimal-mistakes-jekyll` theme:
 
 ### Common Errors
 
-- **API Key Error**: Make sure you've replaced the placeholder API key with your actual RapidAPI key
-- **CORS Errors**: These are expected when testing locally without a valid API key
+- **API Key Error**: Make sure you've entered your RapidAPI key in the web interface
+- **CORS Errors**: These are expected when testing locally; use demo mode or implement server-side proxy
 - **Build Failures**: Ensure all Jekyll dependencies are installed with `bundle install`
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Contributing
 
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
-4. Test locally
+4. Test thoroughly
 5. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## API Credits
 
