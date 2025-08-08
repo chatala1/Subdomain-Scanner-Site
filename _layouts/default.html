@@ -10,8 +10,40 @@
   </head>
 
   <body>
+    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark mode">
+      <span id="theme-icon">🌙</span>
+    </button>
+    
     <main id="main" role="main">
       {{ content }}
     </main>
+    
+    <script>
+      // Theme management for Jekyll
+      function initializeTheme() {
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        updateThemeIcon(savedTheme);
+      }
+
+      function toggleTheme() {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateThemeIcon(newTheme);
+      }
+
+      function updateThemeIcon(theme) {
+        const themeIcon = document.getElementById('theme-icon');
+        if (themeIcon) {
+          themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+        }
+      }
+      
+      // Initialize theme on page load
+      document.addEventListener('DOMContentLoaded', initializeTheme);
+    </script>
   </body>
 </html>
