@@ -30,34 +30,34 @@
 }
 
 [data-theme="dark"] {
-  /* Dark theme colors - IBM X-FORCE inspired */
-  --bg-primary: #1e1e1e;
-  --bg-secondary: #2d2d2d;
-  --bg-accent: #3d3d3d;
-  --bg-accent-border: #555555;
-  --bg-subdomain: #333333;
-  --bg-subdomain-hover: #404040;
-  
-  --text-primary: #ffffff;
-  --text-secondary: #f0f0f0;
-  --text-muted: #b0b0b0;
-  --text-accent: #ffb000;
+  /* Dark theme colors - GitHub inspired */
+  --bg-primary: #0d1117;
+  --bg-secondary: #161b22;
+  --bg-accent: #21262d;
+  --bg-accent-border: #30363d;
+  --bg-subdomain: #21262d;
+  --bg-subdomain-hover: #30363d;
+
+  --text-primary: #c9d1d9;
+  --text-secondary: #c9d1d9;
+  --text-muted: #8b949e;
+  --text-accent: #8957e5;
   --text-light: #ffffff;
-  
-  --accent-primary: #0078d4;
-  --accent-primary-hover: #106ebe;
-  --accent-success: #00d084;
-  --accent-success-hover: #00b570;
-  --accent-danger: #ff5555;
-  --accent-warning: #ffb000;
-  --accent-warning-text: #1e1e1e;
-  
-  --border-color: #555555;
-  --border-accent: #0078d4;
-  --border-separator: #404040;
-  
-  --shadow-primary: 0 4px 6px rgba(0, 0, 0, 0.3);
-  --shadow-focus: 0 0 0 3px rgba(0, 120, 212, 0.3);
+
+  --accent-primary: #0f62fe;
+  --accent-primary-hover: #0043ce;
+  --accent-success: #238636;
+  --accent-success-hover: #1f7f2f;
+  --accent-danger: #da3633;
+  --accent-warning: #8957e5;
+  --accent-warning-text: #c9d1d9;
+
+  --border-color: #30363d;
+  --border-accent: #0f62fe;
+  --border-separator: #21262d;
+
+  --shadow-primary: 0 4px 6px rgba(0, 0, 0, 0.4);
+  --shadow-focus: 0 0 0 3px rgba(15, 98, 254, 0.3);
 }
 
 body {
