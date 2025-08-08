@@ -1,28 +1,5 @@
 let userApiKey = localStorage.getItem('rapidapi_key');
 
-// Theme management
-function initializeTheme() {
-  const savedTheme = localStorage.getItem('theme') || 'light';
-  document.documentElement.setAttribute('data-theme', savedTheme);
-  updateThemeIcon(savedTheme);
-}
-
-function toggleTheme() {
-  const currentTheme = document.documentElement.getAttribute('data-theme');
-  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-  
-  document.documentElement.setAttribute('data-theme', newTheme);
-  localStorage.setItem('theme', newTheme);
-  updateThemeIcon(newTheme);
-}
-
-function updateThemeIcon(theme) {
-  const themeIcon = document.getElementById('theme-icon');
-  if (themeIcon) {
-    themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
-  }
-}
-
 function showApiKeyInput() {
   const keyInput = document.getElementById("apiKeyInput");
   const keySection = document.getElementById("apiKeySection");
@@ -172,9 +149,6 @@ async function scanSubdomains() {
 
 // Check if API key exists on page load and add Enter key support
 window.addEventListener('DOMContentLoaded', function() {
-  // Initialize theme
-  initializeTheme();
-  
   if (userApiKey) {
     document.getElementById("apiKeyStatus").innerHTML = "✓ API key saved";
     document.getElementById("clearKeyBtn").style.display = "inline";
