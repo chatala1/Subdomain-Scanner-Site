@@ -1,13 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ site.locale | default: "en-US" }}">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ page.title | default: site.title }}</title>
-    <meta name="description" content="{{ page.description | default: site.description }}">
-    <link rel="stylesheet" href="/style.css">
+    {% include head.html %}
   </head>
-  <body>
-    <main>{{ content }}</main>
+
+  <body class="{{ page.layout | default: 'default' }}{% if site.skin %} skin-{{ site.skin }}{% endif %}">
+    {% include skip-links.html %}
+    {% include masthead.html %}
+    {% include navigation.html %}
+
+    <main id="main" role="main">
+      {{ content }}
+    </main>
+
+    {% include footer.html %}
+    {% include scripts.html %}
   </body>
 </html>
