@@ -3,7 +3,8 @@ description: Scan subdomains using RapidAPI
 theme: minimal-mistakes-jekyll
 skin: dark
 plugins:
-  - jekyll-include-cache
+  - jekyll-feed
+  - minimal-mistakes-jekyll
 
 minimal_mistakes_skin: "air"
 markdown: kramdown

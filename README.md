@@ -1,15 +1,20 @@
 # Subdomain Scanner
 
-A web-based subdomain scanner that integrates with the RapidAPI Subdomain Scanner service.
+A web-based subdomain scanner that integrates with the RapidAPI Subdomain Scanner service. This project provides both a modern single-page application interface and Jekyll-based static site generation for GitHub Pages deployment.
 
 ## Features
 
-- 🔐 Secure API key management (stored locally in browser)
-- 🎯 Clean, modern interface
-- 🚀 Real-time subdomain scanning
-- 📱 Mobile-responsive design
-- 🔄 Demo mode for testing
-- ⚡ Error handling and user feedback
+- 🔐 **Secure API key management** - Keys stored locally in browser only
+- 🎯 **Clean, modern interface** - Responsive design that works on all devices
+- 🚀 **Real-time subdomain scanning** - Live results with loading states
+- 📱 **Mobile-responsive design** - Optimized for desktop and mobile
+- 🔄 **Demo mode for testing** - Works when CORS restrictions prevent API calls
+- ⚡ **Error handling and user feedback** - Comprehensive error messages
+- 🏗️ **Jekyll-based static site generation** - GitHub Pages deployment ready
+
+## Demo
+
+The site is deployed at: [https://chatala1.github.io/Subdomain-Scanner-Site](https://chatala1.github.io/Subdomain-Scanner-Site)
 
 ## How to Use
 
@@ -20,6 +25,42 @@ A web-based subdomain scanner that integrates with the RapidAPI Subdomain Scanne
 3. **Scan Subdomains**: Enter a domain name (e.g., `example.com`) and click "Scan" to discover subdomains.
 
 4. **Demo Mode**: If you encounter CORS issues (common with browser-based API calls), you can use the demo mode to see how the scanner works.
+
+## Setup
+
+### Local Development
+
+1. **Install Ruby and Bundler**:
+   ```bash
+   gem install bundler --user-install
+   export PATH="$PATH:$HOME/.local/share/gem/ruby/3.2.0/bin"
+   ```
+
+2. **Install dependencies**:
+   ```bash
+   bundle install --path vendor/bundle
+   ```
+
+3. **Build the site**:
+   ```bash
+   bundle exec jekyll build
+   ```
+
+4. **Run development server**:
+   ```bash
+   bundle exec jekyll serve --host 0.0.0.0 --port 4000
+   ```
+
+   The site will be available at `http://localhost:4000`
+
+### Simple HTTP Server Alternative
+
+For quick testing without Jekyll:
+
+```bash
+# Simple HTTP server
+python3 -m http.server 8000
+```
 
 ## Technical Details
 
@@ -37,37 +78,56 @@ Due to browser security restrictions (CORS), direct API calls to RapidAPI may no
 - No server-side storage of sensitive information
 - Keys can be easily changed or cleared
 
-### Files Structure
+## File Structure
 
-- `index.html` - Main application page
-- `style.css` - Styling and responsive design
-- `assets/js/scanner.js` - Core functionality and API integration
-- `index.md` - Jekyll version (for GitHub Pages deployment)
+```
+├── _config.yml          # Jekyll configuration
+├── _layouts/            # Jekyll layout templates
+│   └── default.html
+├── assets/              # Additional assets
+│   └── js/
+│       └── scanner.js   # Main JavaScript functionality
+├── index.html           # Static homepage
+├── index.md             # Jekyll markdown homepage
+├── style.css            # Main stylesheet
+├── deploy.sh            # Deployment script
+└── README.md            # This file
+```
 
 ## Deployment
 
-The site can be deployed as:
+### GitHub Pages
 
-1. **Static Site**: Serve the `index.html` file directly
-2. **GitHub Pages**: Use the Jekyll setup with `index.md`
+The site automatically deploys to GitHub Pages when changes are pushed to the main branch.
 
-For GitHub Pages deployment, use the provided `deploy.sh` script.
+**Note**: The configured theme `minimal-mistakes-jekyll` is not available in GitHub Pages. For local development, you may need to temporarily disable the theme or use a supported theme.
 
-## Development
+### Manual Deployment
 
-To run locally:
+Use the provided deployment script:
 
 ```bash
-# Simple HTTP server
-python3 -m http.server 8000
-
-# Or with Jekyll (requires Ruby/Bundler)
-bundle exec jekyll serve
+./deploy.sh
 ```
 
-## API Integration
+## Troubleshooting
 
-The scanner integrates with the [RapidAPI Subdomain Scanner](https://rapidapi.com/sedrakpc/api/subdomain-scan1/) service. For production use, consider implementing a server-side proxy to avoid CORS limitations and better protect API keys.
+### Theme Issues
+
+If you encounter build errors related to the `minimal-mistakes-jekyll` theme:
+
+1. Temporarily comment out the theme in `_config.yml`:
+   ```yaml
+   # theme: minimal-mistakes-jekyll
+   ```
+
+2. Simplify `_layouts/default.html` to remove theme-specific includes
+
+### Common Errors
+
+- **API Key Error**: Make sure you've entered your RapidAPI key in the web interface
+- **CORS Errors**: These are expected when testing locally; use demo mode or implement server-side proxy
+- **Build Failures**: Ensure all Jekyll dependencies are installed with `bundle install`
 
 ## Contributing
 
@@ -79,4 +139,8 @@ The scanner integrates with the [RapidAPI Subdomain Scanner](https://rapidapi.co
 
 ## License
 
-See [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## API Credits
+
+This project uses the subdomain-scan1 API from RapidAPI for subdomain discovery.

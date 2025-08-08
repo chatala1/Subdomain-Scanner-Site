@@ -57,12 +57,23 @@ function runDemoScan(domain) {
 }
 
 async function scanSubdomains() {
-  const domain = document.getElementById("domainInput").value.trim();
+  const domainInput = document.getElementById("domainInput");
+  const domain = domainInput.value.trim();
   const listEl = document.getElementById("subdomainList");
   const statusEl = document.getElementById("scanStatus");
   
+  // Input validation
   if (!domain) {
-    alert("Please enter a domain name");
+    alert("Please enter a domain name.");
+    domainInput.focus();
+    return;
+  }
+  
+  // Basic domain validation
+  const domainRegex = /^[a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?)*$/;
+  if (!domainRegex.test(domain)) {
+    alert("Please enter a valid domain name (e.g., example.com).");
+    domainInput.focus();
     return;
   }
 
@@ -126,6 +137,9 @@ async function scanSubdomains() {
         <li style='color: #007bff; cursor: pointer;' onclick='runDemoScan("${domain}")'>Click here to see demo results</li>
       `;
       statusEl.innerHTML = "Error: CORS restriction. Try demo mode or implement server-side proxy.";
+    } else if (err.message.includes("429")) {
+      listEl.innerHTML = "<li style='color: red;'>Error: API rate limit exceeded</li>";
+      statusEl.innerHTML = "Error: API rate limit exceeded. Please try again later.";
     } else {
       listEl.innerHTML = "<li style='color: red;'>Error occurred during scan</li>";
       statusEl.innerHTML = `Error: ${err.message}`;
@@ -133,7 +147,7 @@ async function scanSubdomains() {
   }
 }
 
-// Check if API key exists on page load
+// Check if API key exists on page load and add Enter key support
 window.addEventListener('DOMContentLoaded', function() {
   if (userApiKey) {
     document.getElementById("apiKeyStatus").innerHTML = "✓ API key saved";
@@ -141,5 +155,14 @@ window.addEventListener('DOMContentLoaded', function() {
   } else {
     showApiKeyInput();
   }
+  
+  // Add Enter key support for domain input
+  const domainInput = document.getElementById("domainInput");
+  if (domainInput) {
+    domainInput.addEventListener("keypress", function(event) {
+      if (event.key === "Enter") {
+        scanSubdomains();
+      }
+    });
+  }
 });
-
