@@ -4,13 +4,13 @@ A web-based subdomain scanner that integrates with the RapidAPI Subdomain Scanne
 
 ## Features
 
-- 🔐 **Secure API key management** - Keys stored locally in browser only
-- 🎯 **Clean, modern interface** - Responsive design that works on all devices
-- 🚀 **Real-time subdomain scanning** - Live results with loading states
-- 📱 **Mobile-responsive design** - Optimized for desktop and mobile
-- 🔄 **Demo mode for testing** - Works when CORS restrictions prevent API calls
-- ⚡ **Error handling and user feedback** - Comprehensive error messages
-- 🏗️ **Jekyll-based static site generation** - GitHub Pages deployment ready
+- **Secure API key management** - Keys stored locally in browser only
+- **Clean, modern interface** - Responsive design that works on all devices
+- **Real-time subdomain scanning** - Live results with loading states
+- **Mobile-responsive design** - Optimized for desktop and mobile
+- **Demo mode for testing** - Works when CORS restrictions prevent API calls
+- **Error handling and user feedback** - Comprehensive error messages
+- **Jekyll-based static site generation** - GitHub Pages deployment ready
 
 ## Demo
 

@@ -1,4 +1,80 @@
 let userApiKey = localStorage.getItem('rapidapi_key');
+let isAuthenticated = localStorage.getItem('user_authenticated') === 'true';
+
+// Simple hardcoded credentials for demo - in production, use proper authentication
+const VALID_CREDENTIALS = {
+  username: 'admin',
+  password: 'scanner123'
+};
+
+function showLoginForm() {
+  const loginSection = document.getElementById("loginSection");
+  const scannerSection = document.getElementById("scannerSection");
+  const userDisplay = document.getElementById("userDisplay");
+  if (loginSection) loginSection.style.display = "block";
+  if (scannerSection) scannerSection.style.display = "none";
+  if (userDisplay) userDisplay.style.display = "none";
+}
+
+function showScanner() {
+  const loginSection = document.getElementById("loginSection");
+  const scannerSection = document.getElementById("scannerSection");
+  const userDisplay = document.getElementById("userDisplay");
+  if (loginSection) loginSection.style.display = "none";
+  if (scannerSection) scannerSection.style.display = "block";
+  if (userDisplay) userDisplay.style.display = "block";
+}
+
+function login() {
+  const usernameInput = document.getElementById("usernameInput");
+  const passwordInput = document.getElementById("passwordInput");
+  const loginError = document.getElementById("loginError");
+  
+  const username = usernameInput.value.trim();
+  const password = passwordInput.value.trim();
+  
+  if (username === VALID_CREDENTIALS.username && password === VALID_CREDENTIALS.password) {
+    isAuthenticated = true;
+    localStorage.setItem('user_authenticated', 'true');
+    localStorage.setItem('username', username);
+    showScanner();
+    
+    // Update user display
+    const userDisplay = document.getElementById("userDisplay");
+    if (userDisplay) {
+      userDisplay.innerHTML = `Welcome, ${username} | <button onclick="logout()" class="logout-btn">Logout</button>`;
+    }
+    
+    // Clear form
+    usernameInput.value = '';
+    passwordInput.value = '';
+    if (loginError) loginError.textContent = '';
+  } else {
+    if (loginError) {
+      loginError.textContent = 'Invalid username or password';
+    }
+  }
+}
+
+function logout() {
+  isAuthenticated = false;
+  localStorage.removeItem('user_authenticated');
+  localStorage.removeItem('username');
+  showLoginForm();
+  
+  // Clear user display
+  const userDisplay = document.getElementById("userDisplay");
+  if (userDisplay) {
+    userDisplay.style.display = "none";
+    userDisplay.innerHTML = "";
+  }
+  
+  // Clear any scan results
+  const listEl = document.getElementById("subdomainList");
+  const statusEl = document.getElementById("scanStatus");
+  if (listEl) listEl.innerHTML = '';
+  if (statusEl) statusEl.innerHTML = '';
+}
 
 function showApiKeyInput() {
   const keyInput = document.getElementById("apiKeyInput");
@@ -57,6 +133,13 @@ function runDemoScan(domain) {
 }
 
 async function scanSubdomains() {
+  // Check authentication first
+  if (!isAuthenticated) {
+    alert("Please log in first to use the scanner.");
+    showLoginForm();
+    return;
+  }
+
   const domainInput = document.getElementById("domainInput");
   const domain = domainInput.value.trim();
   const listEl = document.getElementById("subdomainList");
@@ -149,11 +232,45 @@ async function scanSubdomains() {
 
 // Check if API key exists on page load and add Enter key support
 window.addEventListener('DOMContentLoaded', function() {
+  // Check authentication status first
+  const storedUsername = localStorage.getItem('username');
+  if (isAuthenticated && storedUsername) {
+    showScanner();
+    const userDisplay = document.getElementById("userDisplay");
+    if (userDisplay) {
+      userDisplay.innerHTML = `Welcome, ${storedUsername} | <button onclick="logout()" class="logout-btn">Logout</button>`;
+    }
+  } else {
+    showLoginForm();
+  }
+  
+  // API key management
   if (userApiKey) {
     document.getElementById("apiKeyStatus").innerHTML = "✓ API key saved";
     document.getElementById("clearKeyBtn").style.display = "inline";
   } else {
-    showApiKeyInput();
+    const apiKeySection = document.getElementById("apiKeySection");
+    if (apiKeySection && isAuthenticated) {
+      showApiKeyInput();
+    }
+  }
+  
+  // Add Enter key support for login form
+  const usernameInput = document.getElementById("usernameInput");
+  const passwordInput = document.getElementById("passwordInput");
+  if (usernameInput) {
+    usernameInput.addEventListener("keypress", function(event) {
+      if (event.key === "Enter") {
+        login();
+      }
+    });
+  }
+  if (passwordInput) {
+    passwordInput.addEventListener("keypress", function(event) {
+      if (event.key === "Enter") {
+        login();
+      }
+    });
   }
   
   // Add Enter key support for domain input
